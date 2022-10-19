@@ -9,10 +9,13 @@ class CssFormater:
 
         self.format = NULL
         self.xt = ""
+        self.incrDec = NULL
 
-    def make(self, name, property, value):
+        self.__resultArray = []
+
+    def make(self, name, prop, value = ""):
         self.class_name = name
-        self.property = property
+        self.property = prop
         self.value = value
         return self
 
@@ -43,5 +46,15 @@ class CssFormater:
 
     # Build Engine
     def build(self):
-        a = f"{self.property}:{self.value}{self.xt}"
-        return f".{self.class_name}{{{a}}}"
+        if(self.incrDec == NULL):
+            a = f"{self.property}:{self.value}{self.xt}"
+        else:
+            a = f"{self.property}:{self.value}{self.xt}"
+        return f".{self.class_name}-{self.incrDec}{{{a}}}"
+    
+    def buildMany(self, begin, end, interval = 1):
+        for i in range(begin, end + 1, interval):
+            self.value = self.incrDec = i
+            self.__resultArray.append(self.build())
+        
+        return self.__resultArray
