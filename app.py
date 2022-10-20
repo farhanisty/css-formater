@@ -18,44 +18,62 @@ class Main:
         print("\n----------CSS Generator by farhannivta ramadhana------------")
         self._createMenu({"choose file" : self.setFile, "quit" : self.quit})
 
+    def setFile(self):
+        self._createMenu({"choose file" : self.setFile, "quit" : self.quit})
+    #================FUNCTIONS=================#
+    #---------MENU FUNCTIONS------------#
+    def quit(self):
+        print("bye")
+    #==========UTILS FUNCTIONS==========#
     def _createMenu(self, list):
         self._printInfo()
         lst = list
         klst = [key for key, val in lst.items()]
 
+        if self.page != "menu":
+            klst.append("back")
+        
+        klst.append("quit")
+
+        print(klst)
+
         no = 1
         for i in lst:
             print(f"{no}. {klst[no - 1]}")
             no += 1
-        ipt = int(input("input anda: "))
+
+        try:
+            ipt = int(input("your input: "))
+        except ValueError:
+            self._printError("Invalid input")
+            return self._createMenu(list)
 
         if ipt > len(klst) or ipt <= 0:
-            print("bego")
-            self._createMenu(list)
+            self._printError("Masukkan input sesuai di opsi")
+            return self._createMenu(list)
         lst[klst[ipt-1]]()
 
     def _printInfo(self):
-        self._printSpace(f"pwd :{self.pwd}")
+        self._printSpaceStart(f"pwd :{self.pwd}")
         if self.file == "":
             self._printSpaceEnd(f"file :========Not set yet==========")
         else:
             self._printSpaceEnd(f"file :{self.file}")
     
+
+
+    #-----------PRINT FUNCTIONS--------------#
     def _printSpace(self, msg, n = 1):
+        print("\n" * n + msg + "\n" * n)
+
+    def _printSpaceStart(self, msg, n = 1):
         print("\n" * n + msg)
 
     def _printSpaceEnd(self, msg, n = 1):
         print(msg + "\n" * n)
-
-
-
-    #================FUNCTIONS=================#
-    #---------MENU FUNCTIONS------------#
-    def setFile(self):
-        print("hello world")
-
-    def quit(self):
-        print("bye")
+    
+    def _printError(self, msg):
+        self._printSpaceStart(10 * "*" + " " + msg + " " + 10 * "*")
     
 
 if __name__ == "__main__":
