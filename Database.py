@@ -3,23 +3,23 @@ import mysql.connector
 
 class Database:
     def __init__(self, dbname = "", user = "root", password = "", host = "localhost", port = "3306"):
+
+        # Database Configuration
         self.__dbname = dbname
         self.__user = user
         self.__password = password
         self.__host = host
         self.__port = port
 
+         # Connect to database
         self.__mydb = NULL
-
         self.__conn()
-        self.__excstr = ""
+        self.__mycursor = self.__mydb.cursor()
         
+
+        self.__excstr = ""
         self.__value = []
         self.__where_count = 0
-
-        self.__mycursor = self.__mydb.cursor()
-
-        
 
     def __conn(self):
         self.__mydb = mysql.connector.connect(
@@ -83,7 +83,7 @@ class Database:
         return self
 
     
-
+    # Execute functions
     def getOne(self):
         if self.__where_count > 0:
             self.__secureExecute()

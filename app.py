@@ -30,13 +30,6 @@ class Main:
         lst = list
         klst = [key for key, val in lst.items()]
 
-        if self.page != "menu":
-            klst.append("back")
-        
-        klst.append("quit")
-
-        print(klst)
-
         no = 1
         for i in lst:
             print(f"{no}. {klst[no - 1]}")
